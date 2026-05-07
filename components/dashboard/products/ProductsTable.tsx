@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 export interface Product {
@@ -105,9 +106,10 @@ export function ProductsTable({ products, isLoading, error }: ProductsTableProps
 
       <div className="divide-y divide-border">
         {products.map((product, index) => (
-          <div
+          <Link
             key={product.id}
-            className="px-6 py-4 transition-colors hover:bg-gray-50/50 md:grid md:grid-cols-[60px_1fr_120px_140px] md:items-center md:gap-4"
+            href={`/market/product/${product.id}`}
+            className="block px-6 py-4 transition-colors hover:bg-gray-50/50 md:grid md:grid-cols-[60px_1fr_120px_140px] md:items-center md:gap-4"
           >
             <span className="text-sm text-muted md:text-text">
               {(index + 1).toLocaleString("fa-IR")}
@@ -137,7 +139,7 @@ export function ProductsTable({ products, isLoading, error }: ProductsTableProps
                 {formatPrice(product.price)}
               </span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

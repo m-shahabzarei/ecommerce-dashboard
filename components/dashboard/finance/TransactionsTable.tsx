@@ -8,6 +8,7 @@ import {
 interface TransactionsTableProps {
   transactions: Transaction[];
   isLoading?: boolean;
+  onTransactionClick?: (transaction: Transaction) => void;
 }
 
 const STATUS_STYLES: Record<TransactionStatus, string> = {
@@ -61,6 +62,7 @@ function EmptyState() {
 export function TransactionsTable({
   transactions,
   isLoading,
+  onTransactionClick,
 }: TransactionsTableProps) {
   if (isLoading) {
     return (
@@ -104,9 +106,11 @@ export function TransactionsTable({
 
       <div className="divide-y divide-border">
         {transactions.map((tx) => (
-          <div
+          <button
             key={tx.id}
-            className="px-6 py-4 transition-colors hover:bg-gray-50/50 md:grid md:grid-cols-[2fr_100px_140px_100px_80px] md:items-center md:gap-4"
+            type="button"
+            onClick={() => onTransactionClick?.(tx)}
+            className="block w-full px-6 hover:cursor-pointer py-4 text-right transition-colors hover:bg-gray-50/50 md:grid md:grid-cols-[2fr_100px_140px_100px_80px] md:items-center md:gap-4"
           >
             <div className="mt-1 md:mt-0">
               <span className="text-sm text-text">{tx.description}</span>
@@ -144,7 +148,7 @@ export function TransactionsTable({
               <span className="text-xs text-muted md:hidden">زمان:</span>
               <span className="text-sm text-muted">{tx.time}</span>
             </div>
-          </div>
+          </button>
         ))}
       </div>
     </div>

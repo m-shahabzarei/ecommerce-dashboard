@@ -36,10 +36,6 @@ export async function getSupplierConnections(): Promise<Connection[]> {
   // GET /api/v1/supplier/connections/
   return [
     { slug: "basalam", title: "باسلام", status: "not_connected" },
-    { slug: "eitaa", title: "ایتا", status: "not_connected" },
-    { slug: "bale", title: "بله", status: "connected" },
-    { slug: "rubika", title: "روبیکا", status: "connected" },
-    { slug: "digikala", title: "دیجی کالا", status: "not_connected" },
   ];
 }
 
@@ -47,7 +43,6 @@ export async function getSupplierConnections(): Promise<Connection[]> {
 
 const vendorPlatformNames: Record<string, string> = {
   basalam: "باسلام",
-  wordpress: "وردپرس",
 };
 
 export function getVendorPlatformName(slug: string): string {

@@ -12,7 +12,7 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
   const [current, setCurrent] = useState(0);
 
   const allImages =
-    images.length > 0 ? images : Array.from({ length: 5 }, () => "");
+    images.length > 0 ? images : Array.from({ length: 5 }, () => "/place.png");
 
   const handlePrev = () => {
     setCurrent((prev) => (prev === 0 ? allImages.length - 1 : prev - 1));

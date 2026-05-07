@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import type { MarketSupplier } from "@/lib/services/market";
+import { SalesChannelSelectButton } from "@/components/dashboard/market/SalesChannelSelectButton";
 
 interface SupplierInfoProps {
   supplier: MarketSupplier;
@@ -71,6 +72,11 @@ export function SupplierInfo({ supplier }: SupplierInfoProps) {
             <span>هزینه ارسال: {supplier.shippingCost}</span>
           </div>
         </div>
+
+        <SalesChannelSelectButton
+          buttonText="افزودن همه محصولات به کانال فروش"
+          className="mt-2"
+        />
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ export interface UserProfile {
   iban: string;
   city: string;
   county: string;
+  image: File | null;
 }
 
 export interface StoreProfile {

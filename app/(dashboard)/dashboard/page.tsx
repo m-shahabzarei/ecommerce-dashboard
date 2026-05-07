@@ -1,6 +1,8 @@
 import { DashboardHome } from "@/components/dashboard/DashboardHome";
-import { MOCK_USER } from "@/lib/roles";
+import { getCurrentRole } from "@/lib/server-role";
 
-export default function DashboardPage() {
-  return <DashboardHome role={MOCK_USER.role} />;
+export default async function DashboardPage() {
+  const role = await getCurrentRole();
+
+  return <DashboardHome role={role} />;
 }

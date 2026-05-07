@@ -2,9 +2,11 @@ import { SidebarSection } from "./SidebarSection";
 import { SidebarItem } from "./SidebarItem";
 import { UserProfileBox } from "./UserProfileBox";
 import { getNavigation } from "@/lib/navigation";
+import { getCurrentRole } from "@/lib/server-role";
 
-export function Sidebar() {
-  const nav = getNavigation();
+export async function Sidebar() {
+  const role = await getCurrentRole();
+  const nav = getNavigation(role);
 
   return (
     <aside className="fixed right-0 top-0 h-full w-[260px] bg-white border-l border-border flex flex-col z-50">
@@ -29,7 +31,7 @@ export function Sidebar() {
       </nav>
 
       <div className="p-4 mt-auto">
-        <UserProfileBox />
+        <UserProfileBox role={role} />
       </div>
     </aside>
   );

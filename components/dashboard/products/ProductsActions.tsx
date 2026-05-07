@@ -9,12 +9,12 @@ export function ProductsActions() {
           افزودن محصول دستی
         </Button>
       </Link>
-      <Button variant="secondary" size="md">
+      {/* <Button variant="secondary" size="md">
         افزودن با اکسل
       </Button>
       <Button variant="secondary" size="md">
         افزودن باسلام
-      </Button>
+      </Button> */}
     </div>
   );
 }

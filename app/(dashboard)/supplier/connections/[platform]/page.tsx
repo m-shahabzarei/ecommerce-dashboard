@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useParams, notFound, useRouter } from "next/navigation";
 import {
   getSupplierPlatformName,
@@ -39,20 +40,34 @@ export default function SupplierConnectionFormPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-text">
-          اتصال به {platformName}
+    <div className="mx-auto flex min-h-[calc(100vh-64px)] max-w-[760px] flex-col items-center py-4">
+      <div className="mb-8 text-center">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <svg className="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-12 0v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21M3 7.5l1.5-4.5h15L21 7.5M3 7.5h18M3 7.5v1.125a2.625 2.625 0 1 0 5.25 0V7.5m0 1.125a2.625 2.625 0 1 0 5.25 0V7.5m0 1.125a2.625 2.625 0 1 0 5.25 0V7.5" />
+          </svg>
+        </div>
+        <h1 className="mt-5 text-3xl font-extrabold text-text">
+          اتصال فروشگاه جدید
         </h1>
-        <p className="mt-1 text-sm text-muted">
-          اطلاعات فروشگاه خود را وارد کنید
+        <p className="mt-3 flex items-center justify-center gap-2 text-sm font-medium text-muted">
+          فروشگاه آنلاین خود را به پلتفرم
+          <img src="/logo.svg" alt="کالاباما" className="h-7 w-auto" />
+          متصل کنید
         </p>
+      </div>
+
+      <div className="mb-5 w-full max-w-[570px] text-left">
+        <Link href="/supplier/connections" className="text-sm font-medium text-muted transition-colors hover:text-primary">
+          بازگشت به انتخاب پلتفرم ←
+        </Link>
       </div>
 
       <ConnectionForm
         platformName={platformName}
         type="decrease"
         onSubmit={handleSubmit}
+        onCancel={() => router.push("/supplier/connections")}
       />
     </div>
   );

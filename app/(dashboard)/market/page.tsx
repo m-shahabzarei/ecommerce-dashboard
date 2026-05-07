@@ -4,6 +4,7 @@ import { useState, useMemo, useCallback } from "react";
 import { MarketTabs } from "@/components/dashboard/market/MarketTabs";
 import type { MarketTab } from "@/components/dashboard/market/MarketTabs";
 import { MarketSearch } from "@/components/dashboard/market/MarketSearch";
+import { ProductFilters } from "@/components/dashboard/market/ProductFilters";
 import { ProductsGrid } from "@/components/dashboard/market/ProductsGrid";
 import { SuppliersGrid } from "@/components/dashboard/market/SuppliersGrid";
 import {
@@ -55,10 +56,15 @@ export default function MarketPage() {
 
       <div className="mt-4">
         {activeTab === "products" ? (
-          <MarketSearch
-            onSearch={handleProductSearch}
-            placeholder="جستجوی محصول..."
-          />
+          <>
+            <MarketSearch
+              onSearch={handleProductSearch}
+              placeholder="جستجوی محصول..."
+            />
+            <div className="mt-4">
+              <ProductFilters />
+            </div>
+          </>
         ) : (
           <MarketSearch
             onSearch={handleSupplierSearch}

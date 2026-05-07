@@ -1,8 +1,13 @@
 import Link from "next/link";
 import { Avatar } from "@/components/ui/Avatar";
 import { MOCK_USER, ROLE_LABELS } from "@/lib/roles";
+import type { Role } from "@/lib/roles";
 
-export function UserProfileBox() {
+interface UserProfileBoxProps {
+  role: Role;
+}
+
+export function UserProfileBox({ role }: UserProfileBoxProps) {
   return (
     <Link
       href="/profile"
@@ -14,7 +19,7 @@ export function UserProfileBox() {
           {MOCK_USER.name}
         </span>
         <span className="text-xs text-muted">
-          {ROLE_LABELS[MOCK_USER.role]}
+          {ROLE_LABELS[role]}
         </span>
       </div>
     </Link>

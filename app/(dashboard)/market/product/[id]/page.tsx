@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 import { getMarketProductById } from "@/lib/services/market";
-import { MOCK_USER } from "@/lib/roles";
+import { getCurrentRole } from "@/lib/server-role";
 import { Button } from "@/components/ui/Button";
 import { ProductGallery } from "@/components/dashboard/market/product/ProductGallery";
 import { ProductInfoCards } from "@/components/dashboard/market/product/ProductInfoCards";
 import { ProductDescription } from "@/components/dashboard/market/product/ProductDescription";
+import { SalesChannelSelectButton } from "@/components/dashboard/market/SalesChannelSelectButton";
 
 export default async function MarketProductDetailPage({
   params,
@@ -20,7 +21,8 @@ export default async function MarketProductDetailPage({
     notFound();
   }
 
-  const isVendor = MOCK_USER.role === "seller";
+  const role = await getCurrentRole();
+  const isVendor = role === "seller";
 
   return (
     <div className="space-y-6">
@@ -55,6 +57,13 @@ export default async function MarketProductDetailPage({
           />
 
           <ProductDescription description={product.description} />
+
+          <div className="flex items-center justify-end">
+            <SalesChannelSelectButton
+              buttonText="افزودن محصول به کانال فروش"
+              buttonSize="lg"
+            />
+          </div>
         </div>
       </div>
     </div>

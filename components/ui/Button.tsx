@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "ghost" | "danger";
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "full";
   children: ReactNode;
 }
 
@@ -18,6 +18,7 @@ const sizes = {
   sm: "px-3 py-1.5 text-sm",
   md: "px-4 py-2 text-sm",
   lg: "px-6 py-3 text-base",
+  full : "px-6 py-3 text-base w-full"
 };
 
 export function Button({
