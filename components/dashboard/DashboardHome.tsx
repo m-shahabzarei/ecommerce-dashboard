@@ -1,5 +1,6 @@
 import { Role } from "@/lib/roles";
 import { DashboardSlider } from "./DashboardSlider";
+import { DashboardSummaryCards } from "./DashboardSummaryCards";
 import { SalesChartCard } from "./SalesChartCard";
 import { OrdersStatusCard } from "./OrdersStatusCard";
 import { NewProductsCard } from "./NewProductsCard";
@@ -14,13 +15,14 @@ export function DashboardHome({ role }: DashboardHomeProps) {
   return (
     <div className="space-y-6">
       <DashboardSlider />
+      <DashboardSummaryCards role={role} />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <SalesChartCard />
         <OrdersStatusCard />
       </div>
 
-      {isSupplier && <NewProductsCard />}
+      {!isSupplier && <NewProductsCard />}
     </div>
   );
 }

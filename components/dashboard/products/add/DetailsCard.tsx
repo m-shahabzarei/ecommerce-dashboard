@@ -26,7 +26,7 @@ export function DetailsCard({
       <div className="space-y-4">
         <div>
           <label className="mb-1.5 block text-sm font-medium text-text">
-            عنوان
+            نام محصول
           </label>
           <input
             type="text"
@@ -63,7 +63,7 @@ export function DetailsCard({
 
         <div>
           <label className="mb-1.5 block text-sm font-medium text-text">
-            دسته‌بندی (اختیاری)
+            دسته‌بندی 
           </label>
           <input
             type="text"

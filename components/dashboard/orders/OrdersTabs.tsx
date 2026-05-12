@@ -18,36 +18,49 @@ interface OrdersTabsProps {
 
 export function OrdersTabs({ activeTab, onChange, counts }: OrdersTabsProps) {
   return (
-    <div className="mb-5 grid grid-cols-4">
-      {ORDER_TABS.map((tab) => (
-        <button
-          key={tab.key}
-          onClick={() => onChange(tab.key)}
-          className={cn(
-            "flex h-20 items-center justify-center border text-sm font-medium transition-all",
-            activeTab === tab.key
-              ? "border-primary bg-primary text-white shadow-sm"
-              : "border-gray-200 bg-white text-gray-600 hover:bg-gray-100"
-          )}
-        >
-          <span className="flex items-center gap-1.5"
-          >
-            {tab.label}
-            {counts && (
+    <div className="overflow-x-auto">
+      <div className="grid min-w-180 grid-cols-4 border-b border-slate-200/80 bg-white/90">
+        {ORDER_TABS.map((tab) => {
+          const isActive = activeTab === tab.key;
+
+          return (
+            <button
+              key={tab.key}
+              type="button"
+              onClick={() => onChange(tab.key)}
+              className={cn(
+                "group relative flex h-20 items-center justify-center px-4 text-sm font-semibold transition-colors",
+                isActive
+                  ? "text-primary"
+                  : "text-slate-500 hover:text-slate-800"
+              )}
+            >
+              <span className="flex items-center gap-2">
+                {counts && (
+                  <span
+                    className={cn(
+                      "inline-flex min-w-7 items-center justify-center rounded-full px-2 py-1 text-xs font-bold transition-colors",
+                      isActive
+                        ? "bg-primary text-white"
+                        : "bg-slate-100 text-slate-500 group-hover:bg-slate-200"
+                    )}
+                  >
+                    {counts[tab.key].toLocaleString("fa-IR")}
+                  </span>
+                )}
+                <span>{tab.label}</span>
+              </span>
+
               <span
                 className={cn(
-                  "flex h-5 min-w-[20px] items-center justify-center rounded-full px-1.5 text-xs font-semibold",
-                  activeTab === tab.key
-                    ? "bg-white/20 text-white"
-                    : "bg-gray-100 text-gray-500"
+                  "absolute inset-x-6 bottom-0 h-0.75 rounded-full transition-all",
+                  isActive ? "bg-primary" : "bg-transparent"
                 )}
-              >
-                {counts[tab.key]}
-              </span>
-            )}
-          </span>
-        </button>
-      ))}
+              />
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
