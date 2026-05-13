@@ -9,6 +9,7 @@ export const ROLE_LABELS: Record<Role, string> = {
 
 export const MOCK_USER = {
   name: "علی رضایی",
+  phone: "۰۹۱۲۳۴۵۶۷۸۹",
   role: "supplier" as Role,
 };
 

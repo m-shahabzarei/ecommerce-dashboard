@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import type {
   Order,
@@ -139,13 +140,13 @@ function OrderCard({ order }: { order: Order }) {
             <span>چاپ برچسب</span>
           </button>
 
-          <button
-            type="button"
+          <Link
+            href={`/orders/${order.id}`}
             className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
           >
             <EyeIcon className="h-4 w-4" />
             <span>مشاهده جزئیات</span>
-          </button>
+          </Link>
         </aside>
 
         <div className="space-y-2.5 md:order-2">

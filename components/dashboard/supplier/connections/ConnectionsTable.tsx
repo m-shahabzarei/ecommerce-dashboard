@@ -27,7 +27,7 @@ const statusConfig: Record<
 export function ConnectionsTable({ connections, onToggle }: ConnectionsTableProps) {
   return (
     <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
-      <div className="hidden bg-gray-100 px-6 py-3 text-sm font-bold text-text md:grid md:grid-cols-[1fr_120px_120px] md:items-center md:gap-4">
+      <div className="hidden bg-gray-100 px-6 py-3 text-sm font-bold text-text md:grid md:grid-cols-[1fr_120px_220px] md:items-center md:gap-4">
         <span>عنوان</span>
         <span className="text-center">وضعیت</span>
         <span className="text-left">عملیات</span>
@@ -42,7 +42,7 @@ export function ConnectionsTable({ connections, onToggle }: ConnectionsTableProp
           return (
             <div
               key={connection.slug}
-              className="px-6 py-4 transition-colors hover:bg-gray-50/50 md:grid md:grid-cols-[1fr_120px_120px] md:items-center md:gap-4"
+              className="px-6 py-4 transition-colors hover:bg-gray-50/50 md:grid md:grid-cols-[1fr_120px_220px] md:items-center md:gap-4"
             >
               <div className="mt-0">
                 <span className="text-sm font-medium text-text md:text-base">
@@ -62,16 +62,23 @@ export function ConnectionsTable({ connections, onToggle }: ConnectionsTableProp
               <div className="mt-1 flex md:mt-0 md:justify-end">
                 {isActive ? (
                   isConnected ? (
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => {
-                        const confirmed = window.confirm("آیا مطمئن هستید؟");
-                        if (confirmed) onToggle?.(connection.slug);
-                      }}
-                    >
-                      قطع اتصال
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      <Link href={`/supplier/connections/${connection.slug}?mode=edit`}>
+                        <Button variant="secondary" size="sm">
+                          ویرایش
+                        </Button>
+                      </Link>
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => {
+                          const confirmed = window.confirm("آیا مطمئن هستید؟");
+                          if (confirmed) onToggle?.(connection.slug);
+                        }}
+                      >
+                        قطع اتصال
+                      </Button>
+                    </div>
                   ) : (
                     <Link href={`/supplier/connections/${connection.slug}`}>
                       <Button variant="primary" size="sm">

@@ -1,35 +1,63 @@
 "use client";
 
-import { useState, FormEvent, useCallback } from "react";
+import { useState, FormEvent, useCallback, useMemo, useEffect } from "react";
 import { CheckIcon } from "@/components/ui/Icons";
+import { cn } from "@/lib/utils";
 import type { ConnectionFormData } from "@/lib/services/connections";
 
 interface ConnectionFormProps {
   platformName: string;
   type: "increase" | "decrease";
+  initialData?: ConnectionFormData | null;
   onSubmit: (data: ConnectionFormData) => void;
   onCancel: () => void;
 }
 
+const emptyFormData: ConnectionFormData = {
+  name: "",
+  address: "",
+  discount: "",
+  apiKey: "oauth",
+};
+
 export function ConnectionForm({
   platformName,
   type,
+  initialData,
   onSubmit,
   onCancel,
 }: ConnectionFormProps) {
-  const [formData, setFormData] = useState<ConnectionFormData>({
-    name: "",
-    address: "",
-    discount: "",
-    apiKey: "oauth",
-  });
+  const [formData, setFormData] = useState<ConnectionFormData>(
+    initialData ?? emptyFormData
+  );
 
   const [errors, setErrors] = useState<
     Partial<Record<keyof ConnectionFormData, string>>
   >({});
 
+  useEffect(() => {
+    setFormData(initialData ?? emptyFormData);
+    setErrors({});
+  }, [initialData]);
+
   const percentLabel =
     type === "increase" ? "درصد افزایش قیمت" : "درصد تخفیف";
+
+  const percentHint =
+    type === "increase"
+      ? "درصد افزایش مورد نظر برای هماهنگی قیمت‌ها را مشخص کنید."
+      : "درصد تخفیف مورد نظر برای هماهنگی قیمت‌ها را مشخص کنید.";
+
+  const todayLabel = useMemo(
+    () =>
+      new Intl.DateTimeFormat("fa-IR", {
+        weekday: "long",
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+      }).format(new Date()),
+    []
+  );
 
   const updateField = useCallback(
     (field: keyof ConnectionFormData, value: string) => {
@@ -61,82 +89,80 @@ export function ConnectionForm({
   };
 
   return (
-    <div className="mx-auto w-full max-w-[570px] overflow-hidden rounded-2xl bg-white shadow-[0_18px_45px_rgba(15,23,42,0.18)]">
-      <div className="flex items-center justify-between bg-[#08c866] px-7 py-6 text-white">
-        <div>
-          <h2 className="text-xl font-extrabold">اتصال به {platformName}</h2>
-          <p className="mt-1 text-sm font-medium text-white/90">
-            بازارگاه آنلاین صنایع دستی
-          </p>
-        </div>
-        <div className="flex h-[76px] w-[76px] items-center justify-center rounded-2xl bg-white shadow-sm">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff5c1f] text-2xl font-black text-white">
-            :)
-          </div>
-        </div>
+    <div className="mx-auto w-full max-w-[720px] rounded-[28px] bg-white p-6 shadow-sm md:p-8">
+      <div className="border-b border-border pb-6 text-right">
+        <p className="text-sm font-medium text-muted">{todayLabel}</p>
+        <h2 className="mt-2 text-2xl font-bold text-text">
+          فرم اتصال {platformName}
+        </h2>
+        <p className="mt-2 text-sm text-muted">
+          اطلاعات فروشگاه و دسترسی اتصال را وارد کنید.
+        </p>
       </div>
 
-      <form id="connection-form" onSubmit={handleSubmit} className="px-7 py-7">
-        <div className="mb-6">
-          <h3 className="text-lg font-extrabold text-text">اطلاعات پایه</h3>
-          <p className="mt-1 text-sm font-medium text-muted">
-            اطلاعات فروشگاه خود را وارد کنید
-          </p>
-        </div>
-
-        <div className="space-y-5">
+      <form id="connection-form" onSubmit={handleSubmit} className="pt-6">
+        <div className="space-y-6">
           <div>
             <label
               htmlFor="name"
-              className="mb-2 flex items-center gap-1.5 text-sm font-bold text-text"
+              className="mb-2 block text-sm font-bold text-text"
             >
-              <span className="text-muted">✿</span>
-              نام فروشگاه
-              <span className="text-red-500">*</span>
+              نام فروشگاه <span className="text-red-500">*</span>
             </label>
             <input
               id="name"
               type="text"
               value={formData.name}
               onChange={(e) => updateField("name", e.target.value)}
-              className="h-10 w-full border border-gray-300 bg-white px-3 text-sm text-text outline-none transition-colors placeholder:text-gray-400 focus:border-[#08c866]"
+              className={cn(
+                "h-12 w-full rounded-xl border border-border bg-white px-4 text-sm text-text outline-none transition-colors",
+                "placeholder:text-gray-400 focus:border-primary"
+              )}
               placeholder="مثال: فروشگاه باسلام من"
             />
-            {errors.name && (
-              <p className="mt-1 text-xs text-red-600">{errors.name}</p>
+            {errors.name ? (
+              <p className="mt-2 text-xs text-red-600">{errors.name}</p>
+            ) : (
+              <p className="mt-2 text-xs text-muted">
+                این نام در لیست اتصال‌های شما نمایش داده می‌شود.
+              </p>
             )}
           </div>
 
           <div>
             <label
               htmlFor="address"
-              className="mb-2 flex items-center gap-1.5 text-sm font-bold text-text"
+              className="mb-2 block text-sm font-bold text-text"
             >
-              <span className="text-muted">☵</span>
-              آدرس فروشگاه
-              <span className="text-red-500">*</span>
+              آدرس فروشگاه <span className="text-red-500">*</span>
             </label>
             <input
               id="address"
               type="text"
               value={formData.address}
               onChange={(e) => updateField("address", e.target.value)}
-              className="h-10 w-full border border-gray-300 bg-white px-3 text-sm text-text outline-none transition-colors placeholder:text-gray-400 focus:border-[#08c866]"
+              className={cn(
+                "h-12 w-full rounded-xl border border-border bg-white px-4 text-sm text-text outline-none transition-colors",
+                "placeholder:text-gray-400 focus:border-primary"
+              )}
               placeholder="https://example.com"
+              dir="ltr"
             />
-            {errors.address && (
-              <p className="mt-1 text-xs text-red-600">{errors.address}</p>
+            {errors.address ? (
+              <p className="mt-2 text-xs text-red-600">{errors.address}</p>
+            ) : (
+              <p className="mt-2 text-xs text-muted">
+                آدرس کامل فروشگاه خود در {platformName} را وارد کنید.
+              </p>
             )}
           </div>
 
           <div>
             <label
               htmlFor="discount"
-              className="mb-2 flex items-center gap-1.5 text-sm font-bold text-text"
+              className="mb-2 block text-sm font-bold text-text"
             >
-              <span className="text-muted">↔</span>
-              {percentLabel}
-              <span className="text-red-500">*</span>
+              {percentLabel} <span className="text-red-500">*</span>
             </label>
             <div className="relative">
               <input
@@ -146,58 +172,49 @@ export function ConnectionForm({
                 max={100}
                 value={formData.discount}
                 onChange={(e) => updateField("discount", e.target.value)}
-                className="h-10 w-full border border-gray-300 bg-white py-2 pr-3 pl-10 text-left text-sm text-text outline-none transition-colors placeholder:text-gray-400 focus:border-[#08c866]"
-                placeholder="10-"
+                className={cn(
+                  "h-12 w-full rounded-xl border border-border bg-white py-2 pr-4 pl-16 text-sm text-text outline-none transition-colors",
+                  "placeholder:text-gray-400 focus:border-primary"
+                )}
+                placeholder="مثلاً 10"
               />
-              <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-sm text-muted">
+              <span className="pointer-events-none absolute inset-y-0 left-0 flex w-12 items-center justify-center rounded-l-xl border-r border-border bg-gray-50 text-sm font-medium text-muted">
                 %
               </span>
             </div>
-            <div className="mt-2 rounded-md border border-yellow-300 bg-yellow-50 px-3 py-2 text-center text-xs font-medium text-yellow-700">
-              فروشگاه می‌تواند تا ۱۵٪ تخفیف اعمال کند
-            </div>
+            <p className="mt-2 text-xs text-muted">{percentHint}</p>
           </div>
         </div>
 
-        <div className="mt-7">
-          <h3 className="text-lg font-extrabold text-text">احراز هویت</h3>
-          <p className="mt-1 text-sm font-medium text-muted">
-            اتصال امن به {platformName}
-          </p>
-
-          <div className="mt-4 flex items-center gap-4 rounded-xl border border-emerald-200 bg-emerald-50 px-5 py-4">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#08c866] text-white shadow-lg shadow-emerald-200">
-              <CheckIcon className="h-5 w-5" />
+        <div className="mt-8 rounded-2xl border border-[#f2d9a8] bg-[#fff6e8] p-4">
+          <div className="flex items-start gap-3">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#f4b74a] text-sm font-bold text-white">
+              !
             </div>
             <div>
-              <h4 className="text-sm font-extrabold text-emerald-700">
-                احراز هویت OAuth
-              </h4>
-              <p className="mt-1 text-xs font-medium leading-6 text-emerald-700">
+              <h3 className="text-sm font-bold text-[#a86400]">احراز هویت OAuth</h3>
+              <p className="mt-1 text-xs leading-6 text-[#b07a1d]">
                 پس از کلیک روی دکمه اتصال، به فروشگاه باسلام هدایت می‌شوید. پس از تایید دسترسی، به صورت خودکار به پنل بازمی‌گردید.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-6 border-t border-border pt-5">
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              type="submit"
-              className="flex h-10 items-center justify-center gap-2 rounded-md bg-[#08c866] text-sm font-extrabold text-white transition-colors hover:bg-[#07b85e]"
-            >
-              اتصال فروشگاه
-              <CheckIcon className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={onCancel}
-              className="flex h-10 items-center justify-center gap-2 rounded-md border border-gray-300 bg-white text-sm font-extrabold text-text transition-colors hover:bg-gray-50"
-            >
-              انصراف
-              <span>←</span>
-            </button>
-          </div>
+        <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="h-11 rounded-xl border border-border bg-white px-5 text-sm font-bold text-text transition-colors hover:bg-gray-50"
+          >
+            انصراف
+          </button>
+          <button
+            type="submit"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-primary px-6 text-sm font-bold text-white transition-colors hover:bg-primary/90"
+          >
+            اتصال فروشگاه
+            <CheckIcon className="h-4 w-4" />
+          </button>
         </div>
       </form>
     </div>

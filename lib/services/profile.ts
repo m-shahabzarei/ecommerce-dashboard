@@ -12,7 +12,6 @@ export interface StoreProfile {
   name: string;
   url: string;
   image: File | null;
-  returnPolicy: string;
 }
 
 export async function updateUserProfile(
@@ -42,7 +41,6 @@ export async function updateStoreProfile(
   // formData.append("name", data.name);
   // formData.append("url", data.url);
   // if (data.image) formData.append("image", data.image);
-  // formData.append("returnPolicy", data.returnPolicy);
   // const res = await fetch('/api/store', { method: 'PUT', body: formData });
   // return res.json();
 

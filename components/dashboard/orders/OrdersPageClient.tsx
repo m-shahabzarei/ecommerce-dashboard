@@ -54,7 +54,7 @@ export function OrdersPageClient({ role }: { role: Role }) {
 
   if (isSeller) {
     return (
-      <section className="overflow-hidden rounded-[28px] border border-[#E7ECF4] bg-white">
+      <section className="overflow-hidden rounded-[28px] border-b border-[#E7ECF4] bg-white">
         <SellerOrdersTabs
           activeTab={activeTab}
           onChange={setActiveTab}
@@ -76,13 +76,13 @@ export function OrdersPageClient({ role }: { role: Role }) {
         </p>
       </div>
 
-      <section className="overflow-hidden rounded-[28px] border border-slate-200/80 bg-white/95 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.4)] backdrop-blur">
+      <section className="overflow-hidden rounded-[28px] border-b border-slate-200/80 bg-white/95 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.4)] backdrop-blur">
         <OrdersTabs
           activeTab={activeTab}
           onChange={setActiveTab}
           counts={supplierCounts}
         />
-        <div className="bg-slate-50/50 p-4 sm:p-6">
+        <div className="bg-slate-50/50 py-4 ">
           <OrdersTable orders={filteredOrders} isLoading={isLoading} />
         </div>
       </section>

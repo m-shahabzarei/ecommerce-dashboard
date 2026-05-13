@@ -1,24 +1,11 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import {
+  getStoredConnectionStates,
+  setStoredConnectionStates,
+} from "@/lib/services/connections";
 import type { Connection, ConnectionStatus } from "@/lib/services/connections";
-
-const STORAGE_KEY = "connection-states";
-
-function loadStates(): Record<string, ConnectionStatus> {
-  if (typeof window === "undefined") return {};
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : {};
-  } catch {
-    return {};
-  }
-}
-
-function saveStates(states: Record<string, ConnectionStatus>) {
-  if (typeof window === "undefined") return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(states));
-}
 
 function applyStates(
   connections: Connection[],
@@ -36,7 +23,7 @@ export function useConnections(initialConnections: Connection[]) {
   );
 
   useEffect(() => {
-    const states = loadStates();
+    const states = getStoredConnectionStates();
     setConnections(applyStates(initialConnections, states));
   }, [initialConnections]);
 
@@ -55,7 +42,9 @@ export function useConnections(initialConnections: Connection[]) {
             }
           : c
       );
-      saveStates(Object.fromEntries(next.map((c) => [c.slug, c.status])));
+      setStoredConnectionStates(
+        Object.fromEntries(next.map((c) => [c.slug, c.status]))
+      );
       return next;
     });
   }, []);
@@ -67,7 +56,9 @@ export function useConnections(initialConnections: Connection[]) {
       const next = prev.map((c) =>
         c.slug === slug ? { ...c, status: "connected" as const } : c
       );
-      saveStates(Object.fromEntries(next.map((c) => [c.slug, c.status])));
+      setStoredConnectionStates(
+        Object.fromEntries(next.map((c) => [c.slug, c.status]))
+      );
       return next;
     });
   }, []);

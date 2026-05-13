@@ -18,8 +18,8 @@ interface OrdersTabsProps {
 
 export function OrdersTabs({ activeTab, onChange, counts }: OrdersTabsProps) {
   return (
-    <div className="overflow-x-auto">
-      <div className="grid min-w-180 grid-cols-4 border-b border-slate-200/80 bg-white/90">
+    <div className="overflow-x-auto border-b border-slate-200/80 bg-[#F6F8FC]">
+      <div className="grid min-w-180 grid-cols-4 bg-transparent px-2 pt-2">
         {ORDER_TABS.map((tab) => {
           const isActive = activeTab === tab.key;
 
@@ -29,10 +29,10 @@ export function OrdersTabs({ activeTab, onChange, counts }: OrdersTabsProps) {
               type="button"
               onClick={() => onChange(tab.key)}
               className={cn(
-                "group relative flex h-20 items-center justify-center px-4 text-sm font-semibold transition-colors",
+                "group relative flex h-18 items-center justify-center rounded-t-2xl px-4 text-sm font-semibold transition-all",
                 isActive
-                  ? "text-primary"
-                  : "text-slate-500 hover:text-slate-800"
+                  ? "bg-white text-primary"
+                  : "bg-transparent text-slate-500 hover:text-slate-800"
               )}
             >
               <span className="flex items-center gap-2">
@@ -53,7 +53,7 @@ export function OrdersTabs({ activeTab, onChange, counts }: OrdersTabsProps) {
 
               <span
                 className={cn(
-                  "absolute inset-x-6 bottom-0 h-0.75 rounded-full transition-all",
+                  "absolute inset-x-4 bottom-0 h-0.75 rounded-full transition-all",
                   isActive ? "bg-primary" : "bg-transparent"
                 )}
               />

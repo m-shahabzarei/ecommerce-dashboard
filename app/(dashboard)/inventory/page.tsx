@@ -1,4 +1,5 @@
 import { ShippingCostCard } from "@/components/dashboard/inventory/ShippingCostCard";
+import { WarehouseCard } from "@/components/dashboard/inventory/WarehouseCard";
 
 export default function InventoryPage() {
   return (
@@ -10,6 +11,7 @@ export default function InventoryPage() {
         </p>
       </div>
 
+      <WarehouseCard />
       <ShippingCostCard />
     </div>
   );

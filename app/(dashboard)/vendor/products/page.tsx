@@ -7,16 +7,16 @@ import { VendorProductsTable } from "@/components/dashboard/vendor/products/Vend
 import type { VendorProduct } from "@/components/dashboard/vendor/products/VendorProductsTable";
 
 const mockProducts: VendorProduct[] = [
-  { id: 1, name: "گوشی موبایل سامسونگ گلکسی S24", supplier: "تکنو پارس", inventory: 24, salesChannel: "دیجی‌کالا" },
-  { id: 2, name: "هدفون بی‌سیم اپل ایرپادز پرو ۲", supplier: "دیجیتال سنتر", inventory: 56, salesChannel: "باسلام" },
-  { id: 3, name: "لپ‌تاپ ایسوس VivoBook ۱۴", supplier: "کامپیوتر ایران", inventory: 12, salesChannel: "وبسایت" },
-  { id: 4, name: "ساعت هوشمند شیائومی می بند ۹", supplier: "گجت‌لند", inventory: 0, salesChannel: "دیجی‌کالا" },
-  { id: 5, name: "پاوربانک انکر ۲۰۰۰۰ میلی‌آمپر", supplier: "انرژی مدرن", inventory: 85, salesChannel: "باسلام" },
-  { id: 6, name: "تبلت سامسونگ گلکسی تب S9", supplier: "تکنو پارس", inventory: 8, salesChannel: "وبسایت" },
-  { id: 7, name: "مانیتور ال جی ۲۷ اینچ UltraGear", supplier: "نمایشگر پلاس", inventory: 15, salesChannel: "دیجی‌کالا" },
-  { id: 8, name: "کیبورد مکانیکی ریزر Huntsman", supplier: "گیم‌لند", inventory: 0, salesChannel: "باسلام" },
-  { id: 9, name: "ماوس لاجیتک MX Master ۳S", supplier: "دیجیتال سنتر", inventory: 42, salesChannel: "وبسایت" },
-  { id: 10, name: "وب‌کم لاجیتک C920 HD Pro", supplier: "کامپیوتر ایران", inventory: 30, salesChannel: "دیجی‌کالا" },
+  { id: 1, name: "گوشی موبایل سامسونگ گلکسی S24", supplier: "تکنو پارس", price: 48500000, inventory: 24, salesChannel: "دیجی‌کالا" },
+  { id: 2, name: "هدفون بی‌سیم اپل ایرپادز پرو ۲", supplier: "دیجیتال سنتر", price: 12800000, inventory: 56, salesChannel: "باسلام" },
+  { id: 3, name: "لپ‌تاپ ایسوس VivoBook ۱۴", supplier: "کامپیوتر ایران", price: 32400000, inventory: 12, salesChannel: "وبسایت" },
+  { id: 4, name: "ساعت هوشمند شیائومی می بند ۹", supplier: "گجت‌لند", price: 3200000, inventory: 0, salesChannel: "دیجی‌کالا" },
+  { id: 5, name: "پاوربانک انکر ۲۰۰۰۰ میلی‌آمپر", supplier: "انرژی مدرن", price: 1800000, inventory: 85, salesChannel: "باسلام" },
+  { id: 6, name: "تبلت سامسونگ گلکسی تب S9", supplier: "تکنو پارس", price: 28900000, inventory: 8, salesChannel: "وبسایت" },
+  { id: 7, name: "مانیتور ال جی ۲۷ اینچ UltraGear", supplier: "نمایشگر پلاس", price: 15600000, inventory: 15, salesChannel: "دیجی‌کالا" },
+  { id: 8, name: "کیبورد مکانیکی ریزر Huntsman", supplier: "گیم‌لند", price: 9200000, inventory: 0, salesChannel: "باسلام" },
+  { id: 9, name: "ماوس لاجیتک MX Master ۳S", supplier: "دیجیتال سنتر", price: 7800000, inventory: 42, salesChannel: "وبسایت" },
+  { id: 10, name: "وب‌کم لاجیتک C920 HD Pro", supplier: "کامپیوتر ایران", price: 4500000, inventory: 30, salesChannel: "دیجی‌کالا" },
 ];
 
 export default function VendorProductsPage() {

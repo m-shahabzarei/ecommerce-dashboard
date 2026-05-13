@@ -5,6 +5,7 @@ export interface VendorProduct {
   id: number;
   name: string;
   supplier: string;
+  price: number;
   inventory: number;
   salesChannel: string;
 }
@@ -15,6 +16,10 @@ interface VendorProductsTableProps {
   error?: string | null;
 }
 
+function formatPrice(price: number): string {
+  return price.toLocaleString("fa-IR") + " تومان";
+}
+
 function TableSkeleton() {
   return (
     <div className="animate-pulse divide-y divide-border">
@@ -23,6 +28,7 @@ function TableSkeleton() {
           <div className="h-4 w-8 rounded bg-gray-200" />
           <div className="h-4 flex-1 rounded bg-gray-200" />
           <div className="h-4 w-24 rounded bg-gray-200" />
+          <div className="h-4 w-28 rounded bg-gray-200" />
           <div className="h-4 w-16 rounded bg-gray-200" />
           <div className="h-4 w-20 rounded bg-gray-200" />
         </div>
@@ -39,10 +45,11 @@ export function VendorProductsTable({
   if (isLoading) {
     return (
       <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
-        <div className="hidden bg-gray-100 px-6 py-3 text-sm font-bold text-text md:grid md:grid-cols-[60px_1fr_160px_100px_140px] md:items-center md:gap-4">
+        <div className="hidden bg-gray-100 px-6 py-3 text-sm font-bold text-text md:grid md:grid-cols-[60px_1fr_140px_140px_100px_140px] md:items-center md:gap-4">
           <span>ردیف</span>
           <span>محصول</span>
           <span className="text-center">تامین‌کننده</span>
+          <span className="text-center">قیمت</span>
           <span className="text-center">موجودی</span>
           <span className="text-left">کانال فروش</span>
         </div>
@@ -100,10 +107,11 @@ export function VendorProductsTable({
 
   return (
     <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
-      <div className="hidden bg-gray-100 px-6 py-3 text-sm font-bold text-text md:grid md:grid-cols-[60px_1fr_160px_100px_140px] md:items-center md:gap-4">
+      <div className="hidden bg-gray-100 px-6 py-3 text-sm font-bold text-text md:grid md:grid-cols-[60px_1fr_140px_140px_100px_140px] md:items-center md:gap-4">
         <span>ردیف</span>
         <span>محصول</span>
         <span className="text-center">تامین‌کننده</span>
+        <span className="text-center">قیمت</span>
         <span className="text-center">موجودی</span>
         <span className="text-left">کانال فروش</span>
       </div>
@@ -113,7 +121,7 @@ export function VendorProductsTable({
           <Link
             key={product.id}
             href={`/market/product/${product.id}`}
-            className="block px-6 py-4 transition-colors hover:bg-gray-50/50 md:grid md:grid-cols-[60px_1fr_160px_100px_140px] md:items-center md:gap-4"
+            className="block px-6 py-4 transition-colors hover:bg-gray-50/50 md:grid md:grid-cols-[60px_1fr_140px_140px_100px_140px] md:items-center md:gap-4"
           >
             <span className="text-sm text-muted md:text-text">
               {(index + 1).toLocaleString("fa-IR")}
@@ -128,6 +136,13 @@ export function VendorProductsTable({
             <div className="mt-1 flex items-center gap-2 md:mt-0 md:justify-center">
               <span className="text-xs text-muted md:hidden">تامین‌کننده:</span>
               <span className="text-sm text-text">{product.supplier}</span>
+            </div>
+
+            <div className="mt-1 flex items-center gap-2 md:mt-0 md:justify-center">
+              <span className="text-xs text-muted md:hidden">قیمت:</span>
+              <span className="text-sm font-medium text-text">
+                {formatPrice(product.price)}
+              </span>
             </div>
 
             <div className="mt-1 flex items-center gap-2 md:mt-0 md:justify-center">

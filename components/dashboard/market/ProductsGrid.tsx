@@ -3,9 +3,15 @@ import type { MarketProduct } from "@/lib/services/market";
 
 interface ProductsGridProps {
   products: MarketProduct[];
+  selectedProductIds?: number[];
+  onToggleProduct?: (productId: number) => void;
 }
 
-export function ProductsGrid({ products }: ProductsGridProps) {
+export function ProductsGrid({
+  products,
+  selectedProductIds = [],
+  onToggleProduct,
+}: ProductsGridProps) {
   if (products.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center rounded-2xl bg-white py-16 shadow-sm">
@@ -32,7 +38,12 @@ export function ProductsGrid({ products }: ProductsGridProps) {
   return (
     <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6">
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <ProductCard
+          key={product.id}
+          product={product}
+          isSelected={selectedProductIds.includes(product.id)}
+          onToggle={onToggleProduct}
+        />
       ))}
     </div>
   );

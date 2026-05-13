@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 interface UserInfoCardProps {
   firstName: string;
   lastName: string;
+  phone: string;
   nationalId: string;
   iban: string;
   city: string;
@@ -25,11 +26,15 @@ function TextField({
   value,
   onChange,
   placeholder,
+  readOnly = false,
+  dir,
 }: {
   label: string;
   value: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   placeholder: string;
+  readOnly?: boolean;
+  dir?: "ltr" | "rtl";
 }) {
   return (
     <div>
@@ -38,14 +43,17 @@ function TextField({
       </label>
       <input
         type="text"
+        dir={dir}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        readOnly={readOnly}
+        onChange={(e) => onChange?.(e.target.value)}
         placeholder={placeholder}
         className={cn(
           "w-full rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm text-text",
           "placeholder:text-gray-400",
           "focus:border-primary focus:outline-none focus:ring-0",
-          "transition-colors"
+          "transition-colors",
+          readOnly && "bg-gray-50 text-muted"
         )}
       />
     </div>
@@ -55,6 +63,7 @@ function TextField({
 export function UserInfoCard({
   firstName,
   lastName,
+  phone,
   nationalId,
   iban,
   city,
@@ -134,6 +143,13 @@ export function UserInfoCard({
           value={lastName}
           onChange={onLastNameChange}
           placeholder="نام خانوادگی"
+        />
+        <TextField
+          label="شماره تماس"
+          value={phone}
+          placeholder="شماره تماس"
+          readOnly
+          dir="ltr"
         />
         <TextField
           label="کد ملی"

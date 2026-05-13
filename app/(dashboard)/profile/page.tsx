@@ -35,7 +35,6 @@ export default function ProfilePage() {
   const [storeName, setStoreName] = useState("");
   const [storeUrl, setStoreUrl] = useState("");
   const [storeImage, setStoreImage] = useState<File | null>(null);
-  const [returnPolicy, setReturnPolicy] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -65,7 +64,6 @@ export default function ProfilePage() {
             name: storeName,
             url: storeUrl,
             image: storeImage,
-            returnPolicy,
           }
         : undefined;
 
@@ -91,7 +89,6 @@ export default function ProfilePage() {
       storeName,
       storeUrl,
       storeImage,
-      returnPolicy,
       isSupplier,
     ]
   );
@@ -123,6 +120,7 @@ export default function ProfilePage() {
           <UserInfoCard
             firstName={firstName}
             lastName={lastName}
+            phone={MOCK_USER.phone}
             nationalId={nationalId}
             iban={iban}
             city={city}
@@ -142,11 +140,9 @@ export default function ProfilePage() {
               name={storeName}
               url={storeUrl}
               image={storeImage}
-              returnPolicy={returnPolicy}
               onNameChange={setStoreName}
               onUrlChange={setStoreUrl}
               onImageChange={setStoreImage}
-              onReturnPolicyChange={setReturnPolicy}
             />
           )}
         </div>

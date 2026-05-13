@@ -7,22 +7,18 @@ interface StoreInfoCardProps {
   name: string;
   url: string;
   image: File | null;
-  returnPolicy: string;
   onNameChange: (value: string) => void;
   onUrlChange: (value: string) => void;
   onImageChange: (image: File | null) => void;
-  onReturnPolicyChange: (value: string) => void;
 }
 
 export function StoreInfoCard({
   name,
   url,
   image,
-  returnPolicy,
   onNameChange,
   onUrlChange,
   onImageChange,
-  onReturnPolicyChange,
 }: StoreInfoCardProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -106,25 +102,6 @@ export function StoreInfoCard({
               />
             </div>
           )}
-        </div>
-
-        <div>
-          <label className="mb-1.5 block text-sm font-medium text-text">
-            مرجوعی
-          </label>
-          <textarea
-            value={returnPolicy}
-            onChange={(e) => onReturnPolicyChange(e.target.value)}
-            placeholder="شرایط مرجوعی"
-            rows={4}
-            className={cn(
-              "w-full rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm text-text",
-              "min-h-[80px] resize-y",
-              "placeholder:text-gray-400",
-              "focus:border-primary focus:outline-none focus:ring-0",
-              "transition-colors"
-            )}
-          />
         </div>
       </div>
     </div>
