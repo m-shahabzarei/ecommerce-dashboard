@@ -493,3 +493,7 @@ export function getOrderById(id: number): Order | undefined {
 export function getSellerOrders(): Order[] {
   return sellerOrders;
 }
+
+export function getSellerOrderById(id: number): Order | undefined {
+  return sellerOrders.find((order) => order.id === id);
+}

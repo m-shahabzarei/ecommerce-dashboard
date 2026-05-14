@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import type {
   Order,
@@ -147,21 +148,44 @@ function SellerOrderCard({ order }: { order: Order }) {
           </div>
 
           <div className="space-y-2">
-            {actions.map((action) => (
-              <button
-                key={action.label}
-                type="button"
-                className={cn(
-                  "inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl px-3 text-sm font-semibold transition-colors",
-                  action.className
-                )}
-              >
-                {action.icon === "payment" && <WalletIcon className="h-4 w-4" />}
-                {action.icon === "cancel" && <CloseIcon className="h-4 w-4" />}
-                {action.icon === "details" && <EyeIcon className="h-4 w-4" />}
-                <span>{action.label}</span>
-              </button>
-            ))}
+            {actions.map((action) => {
+              const content = (
+                <>
+                  {action.icon === "payment" && <WalletIcon className="h-4 w-4" />}
+                  {action.icon === "cancel" && <CloseIcon className="h-4 w-4" />}
+                  {action.icon === "details" && <EyeIcon className="h-4 w-4" />}
+                  <span>{action.label}</span>
+                </>
+              );
+
+              if (action.icon === "details") {
+                return (
+                  <Link
+                    key={action.label}
+                    href={`/orders/${order.id}`}
+                    className={cn(
+                      "inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl px-3 text-sm font-semibold transition-colors",
+                      action.className
+                    )}
+                  >
+                    {content}
+                  </Link>
+                );
+              }
+
+              return (
+                <button
+                  key={action.label}
+                  type="button"
+                  className={cn(
+                    "inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl px-3 text-sm font-semibold transition-colors",
+                    action.className
+                  )}
+                >
+                  {content}
+                </button>
+              );
+            })}
           </div>
         </aside>
 
@@ -191,18 +215,20 @@ function SellerOrderCard({ order }: { order: Order }) {
             </div>
           </section>
 
-          <div className="flex items-center justify-between rounded-xl border border-[#E8ECF4] bg-white px-3 py-2.5 text-sm text-slate-600">
+          <div className="flex flex-row items-center justify-between rounded-xl border border-[#E8ECF4] bg-white px-3 py-2.5 text-sm text-slate-600">
             <span className="inline-flex h-5 w-5 items-center justify-center rounded border border-slate-200 text-[11px] text-slate-400">
               {order.itemCount.toLocaleString("fa-IR")}
             </span>
-            <span className="font-medium">{order.itemCount.toLocaleString("fa-IR")} قلم کالا</span>
+            <span className="font-medium" dir="rtl">
+              {order.itemCount.toLocaleString("fa-IR")} قلم کالا
+            </span>
           </div>
 
           <div className="space-y-2">
             {order.items.map((item, index) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between rounded-xl border border-[#E8ECF4] bg-white px-3 py-2.5 text-sm text-slate-700"
+                className="flex flex-row items-center justify-between rounded-xl border border-[#E8ECF4] bg-white px-3 py-2.5 text-sm text-slate-700"
               >
                 <span className="inline-flex h-5 w-5 items-center justify-center rounded border border-slate-200 text-[11px] text-slate-400">
                   {(index + 1).toLocaleString("fa-IR")}
@@ -320,7 +346,8 @@ function getOrderActions(status: OrderStatus) {
   ];
 }
 
-export function SellerOrdersTable({
+export function 
+SellerOrdersTable({
   orders,
   isLoading,
   error,

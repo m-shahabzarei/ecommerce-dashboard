@@ -18,7 +18,7 @@ interface OrdersTabsProps {
 
 export function OrdersTabs({ activeTab, onChange, counts }: OrdersTabsProps) {
   return (
-    <div className="overflow-x-auto border-b border-slate-200/80 bg-[#F6F8FC]">
+    <div className="overflow-x-auto border-b bg-content-bg">
       <div className="grid min-w-180 grid-cols-4 bg-transparent px-2 pt-2">
         {ORDER_TABS.map((tab) => {
           const isActive = activeTab === tab.key;

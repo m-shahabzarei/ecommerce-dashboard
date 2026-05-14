@@ -69,14 +69,7 @@ export function OrdersPageClient({ role }: { role: Role }) {
 
   return (
     <div className="space-y-6">
-      <div className="space-y-1">
-        <h1 className="text-2xl font-bold text-text">سفارشات تامین‌کننده</h1>
-        <p className="text-sm text-muted">
-          نمایش محتوای سفارش‌ها در تب‌های وضعیت با ظاهر مدرن‌تر و دیتای فیک
-        </p>
-      </div>
-
-      <section className="overflow-hidden rounded-[28px] border-b border-slate-200/80 bg-white/95 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.4)] backdrop-blur">
+      <section className="overflow-hidden rounded-[28px] border-b border-[#E7ECF4] bg-white ">
         <OrdersTabs
           activeTab={activeTab}
           onChange={setActiveTab}

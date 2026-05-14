@@ -38,10 +38,6 @@ export default function SupplierProductsPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-text">محصولات من</h1>
-      </div>
-
       <ProductsActions />
 
       <div className="mt-4">

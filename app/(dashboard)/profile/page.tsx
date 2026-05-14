@@ -96,12 +96,6 @@ export default function ProfilePage() {
   return (
     <div className="mx-auto max-w-[800px] space-y-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-text">پروفایل</h1>
-          <p className="mt-1 text-sm text-muted">
-            مدیریت اطلاعات کاربری
-          </p>
-        </div>
 
         <button
           type="button"

@@ -21,13 +21,6 @@ export default function VendorConnectionsPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-text">اتصال فروشگاه</h1>
-        <p className="mt-1 text-sm text-muted">
-          مدیریت اتصال فروشگاه‌ها به پلتفرم‌های مختلف
-        </p>
-      </div>
-
       {isLoading ? (
         <div className="h-32 animate-pulse rounded-2xl bg-gray-100" />
       ) : (

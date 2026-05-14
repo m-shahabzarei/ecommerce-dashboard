@@ -40,10 +40,6 @@ export default function VendorProductsPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-text">محصولات من</h1>
-      </div>
-
       <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center md:justify-between">
         <VendorProductsSearch onSearch={handleSearch} />
         <AddProductButton />
